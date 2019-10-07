@@ -37,28 +37,4 @@ public class CleanserviceappclientApplication {
 		return new RestTemplate(Arrays.asList(converter));
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		RestTemplate restTemplate = restTemplate();
-//
-//		String url = "http://localhost:8080/api/houses/1/persons";
-//
-//		ResponseEntity<PagedResources<Person>> responseEntity = restTemplate.exchange(
-//				url, HttpMethod.GET, null,
-//				new ParameterizedTypeReference<PagedResources<Person>>() {});
-//		PagedResources<Person> resources = responseEntity.getBody();
-//		List<Person> houses = new ArrayList(resources.getContent());
-//		System.out.println(houses);
-//		System.out.println(houses.get(0).getClass());
-
-//		ResponseEntity<PagedResources<House>> responseEntity = restTemplate.exchange(
-//				url, HttpMethod.GET, null,
-//				new ParameterizedTypeReference<PagedResources<House>>() {});
-//		PagedResources<House> resources = responseEntity.getBody();
-//		List<House> houses = new ArrayList(resources.getContent());
-//		System.out.println(houses);
-//		System.out.println(houses.get(0).getClass());
-
-//	}
-
 }

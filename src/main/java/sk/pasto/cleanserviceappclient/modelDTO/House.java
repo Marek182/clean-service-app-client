@@ -11,7 +11,7 @@ import java.util.List;
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class House {
 
-//    private int id;
+    private int resourceId;
 
     private String street;
 

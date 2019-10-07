@@ -9,7 +9,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
 
-    private int id;
+    private int respurceId;
 
     private String firstName;
 

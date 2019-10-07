@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-
 <div class="container">
 
-    <h2>Houses</h2>
+    <h2>House Detail</h2>
     <hr>
 
     <table>
@@ -19,22 +18,20 @@
             <th>House number</th>
             <th>Entry number</th>
             <th>City</th>
-            <th>Detail</th>
+            <th>Persons</th>
         </tr>
         </thead>
 
         <tbody>
 
-        <tr th:each="house : ${houses}">
-
-            <input type="hidden" th:value="${house.resourceId}" />
+        <tr>
 
             <td th:text="${house.street}"/>
             <td th:text="${house.houseNumber}"/>
             <td th:text="${house.houseNumber}"/>
             <td th:text="${house.city}"/>
             <td>
-                <a th:href="@{'/api/houses/' + ${house.resourceId}}">view</a>
+                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/persons'}">view</a>
             </td>
         </tr>
 
@@ -44,6 +41,5 @@
 
 </div>
 
-</body>
 </body>
 </html>

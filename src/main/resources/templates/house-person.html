@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Person on House</h2>
+    <hr>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Houses</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="person : ${persons}">
+
+            <input type="hidden" th:value="${person.respurceId}" />
+
+            <td th:text="${person.firstName}"/>
+            <td th:text="${person.lastName}"/>
+            <td>
+<!--                <a th:href="@{'/api/houses/' + ${}}">view</a>-->
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</body>
+</html>
