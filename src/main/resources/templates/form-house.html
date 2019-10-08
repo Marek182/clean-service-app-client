@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+
+    <h2>New House</h2>
+
+    <hr>
+
+    <form action="#" th:action="@{/api/houses/save}"
+          th:object="${house}" method="post">
+
+        <input type="hidden" th:field="*{resourceId}">
+
+        <input type="text" th:field="*{street}" placeholder="street">
+        <br><br>
+        <input type="text" th:field="*{houseNumber}" placeholder="House number">
+        <br><br>
+        <input type="text" th:field="*{entryNumber}" placeholder="Entry number">
+        <br><br>
+        <input type="text" th:field="*{city}" placeholder="City">
+        <hr>
+        <button type="submit">Save</button>
+
+    </form>
+</div>
+</body>
+</html>

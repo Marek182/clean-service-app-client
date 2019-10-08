@@ -3,6 +3,7 @@ package sk.pasto.cleanserviceappclient.service.house;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,12 @@ public class HouseServiceImpl implements HouseService {
         List<Person> persons = new ArrayList<>(resources.getContent());
 
         return persons;
+    }
+
+    @Override
+    public void save(House house) {
+        HttpEntity<House> entity = new HttpEntity<>(house);
+        House response = restTemplate.postForObject(BASE_REST_URL, entity, House.class);
     }
 }
 
