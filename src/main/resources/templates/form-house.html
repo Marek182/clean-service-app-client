@@ -16,14 +16,25 @@
 
         <input type="hidden" th:field="*{resourceId}">
 
-        <input type="text" th:field="*{street}" placeholder="street">
-        <br><br>
-        <input type="text" th:field="*{houseNumber}" placeholder="House number">
-        <br><br>
-        <input type="text" th:field="*{entryNumber}" placeholder="Entry number">
-        <br><br>
-        <input type="text" th:field="*{city}" placeholder="City">
-        <hr>
+        <table>
+            <tr>
+                <td>Street:</td>
+                <td><input type="text" th:field="*{street}"></td>
+            </tr>
+            <tr>
+                <td>House number:</td>
+                <td><input type="text" th:field="*{houseNumber}"></td>
+            </tr>
+            <tr>
+                <td>Entry number:</td>
+                <td><input type="text" th:field="*{entryNumber}"></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" th:field="*{city}"></td>
+            </tr>
+        </table>
+
         <button type="submit">Save</button>
 
     </form>

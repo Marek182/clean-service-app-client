@@ -11,14 +11,21 @@
     <h2>Houses</h2>
     <hr>
 
+    <div>
+        <a th:href="@{/}">Home</a>
+<!--        <a th:href="@{/}">Persons</a>-->
+    </div>
+
+    <hr>
+
     <table>
 
         <thead>
         <tr>
-            <th>Street</th>
-            <th>House number</th>
-            <th>Entry number</th>
-            <th>City</th>
+            <th>Street <a th:href="@{/api/houses/sort(param='street')}">asc|</a><a th:href="@{/api/houses/sort(param='street,desc')}">desc</a></th>
+            <th>House number <a th:href="@{/api/houses/sort(param='houseNumber')}">asc|</a><a th:href="@{/api/houses/sort(param='houseNumber,desc')}">desc</a></th>
+            <th>Entry number <a th:href="@{/api/houses/sort(param='entryNumber')}">asc|</a><a th:href="@{/api/houses/sort(param='entryNumber,desc')}">desc</a></th>
+            <th>City <a th:href="@{/api/houses/sort(param='city')}">asc|</a><a th:href="@{/api/houses/sort(param='city,desc')}">desc</a></th>
             <th>Detail</th>
         </tr>
         </thead>

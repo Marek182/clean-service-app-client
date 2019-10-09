@@ -19,6 +19,8 @@ public class HouseServiceImpl implements HouseService {
 
     private final String BASE_REST_URL = "http://localhost:8080/api/houses";
 
+    //http://localhost:8080/api/houses?sort=street
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -29,6 +31,20 @@ public class HouseServiceImpl implements HouseService {
                 new ParameterizedTypeReference<PagedResources<House>>() {});
         PagedResources<House> resources = responseEntity.getBody();
         List<House> houses = new ArrayList(resources.getContent());
+
+        return houses;
+    }
+
+    @Override
+    public List<House> findAll(String sort) {
+
+        String url = BASE_REST_URL + "?sort=" + sort;
+
+        ResponseEntity<PagedResources<House>> responseEntity = restTemplate.exchange(
+                url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<PagedResources<House>>() {});
+        PagedResources<House> resources = responseEntity.getBody();
+        List<House> houses = new ArrayList<>(resources.getContent());
 
         return houses;
     }

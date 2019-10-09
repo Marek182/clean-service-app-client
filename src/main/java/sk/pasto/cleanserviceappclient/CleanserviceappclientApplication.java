@@ -18,9 +18,6 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CleanserviceappclientApplication {
 
-	@Autowired
-	RestTemplate restTemplate;
-
 	public static void main(String[] args) {
 		SpringApplication.run(CleanserviceappclientApplication.class, args);
 	}

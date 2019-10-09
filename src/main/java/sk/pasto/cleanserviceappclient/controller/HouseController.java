@@ -26,6 +26,13 @@ public class HouseController {
         return "list-houses";
     }
 
+    @GetMapping("/sort")
+    public String showHousesAscDesc(Model model, @RequestParam("param") String param)  {
+        List<House> houses = houseService.findAll(param);
+        model.addAttribute("houses", houses);
+        return "list-houses";
+    }
+
     @GetMapping("/{id}")
     public String showHouseById(@PathVariable("id") int id, Model model) {
         House house = houseService.findById(id);
