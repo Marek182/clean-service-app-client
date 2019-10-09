@@ -1,5 +1,6 @@
 package sk.pasto.cleanserviceappclient.service.house;
 
+import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 
