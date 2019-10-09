@@ -24,44 +24,14 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
         super(restTemplate, basePath + "houses");
     }
 
+    public House findById(int id) {
 
-    //    @Override
-//    public List<House> findAll() {
-//
-//        String url = BASE_REST_URL + "/houses";
-//
-//        ResponseEntity<PagedResources<House>> responseEntity = restTemplate.exchange(
-//                url, HttpMethod.GET, null,
-//                new ParameterizedTypeReference<PagedResources<House>>() {});
-//        PagedResources<House> resources = responseEntity.getBody();
-//        List<House> houses = new ArrayList(resources.getContent());
-//
-//        return houses;
-//    }
+//        String url = BASE_REST_URL + "/houses/" + id;
+        String url = "http://localhost:8080/api/houses/" + id;
 
-//    @Override
-//    public List<House> findAll(String sort) {
-//
-////        String url = BASE_REST_URL + "/houses?sort=" + sort;
-//        String url = "http://localhost:8080/api/houses?sort=" + sort;
-//
-//        ResponseEntity<PagedResources<House>> responseEntity = restTemplate.exchange(
-//                url, HttpMethod.GET, null,
-//                new ParameterizedTypeReference<PagedResources<House>>() {});
-//        PagedResources<House> resources = responseEntity.getBody();
-//        List<House> houses = new ArrayList<>(resources.getContent());
-//
-//        return houses;
-//    }
-
-//    public House findById(int id) {
-//
-////        String url = BASE_REST_URL + "/houses/" + id;
-//        String url = "http://localhost:8080/api/houses/" + id;
-//
-//        House house = restTemplate.getForObject(url, House.class);
-//        return house;
-//    }
+        House house = restTemplate.getForObject(url, House.class);
+        return house;
+    }
 
     public List<Person> findPersonByHouseId(int id) {
 

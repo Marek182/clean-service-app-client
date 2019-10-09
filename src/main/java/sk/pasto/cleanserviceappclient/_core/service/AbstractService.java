@@ -5,7 +5,6 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import sk.pasto.cleanserviceappclient.modelDTO.House;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +38,12 @@ public abstract class AbstractService<T> {
         return result;
     }
 
-    public T findById(int id) {
-        String url = "http://localhost:8080/api/houses/" + id;
-        ResponseEntity<T> responseEntity = restTemplate.exchange(
-                url, HttpMethod.GET, null, new ParameterizedTypeReference<T>() {});
-        return responseEntity.getBody();
-    }
+//    public T findById(int id) {
+//        String url = "http://localhost:8080/api/houses/" + id;
+//        ResponseEntity<T> responseEntity = restTemplate.exchange(
+//                url, HttpMethod.GET, null, new ParameterizedTypeReference<T>() {});
+//        return responseEntity.getBody();
+//    }
 
 
 }
