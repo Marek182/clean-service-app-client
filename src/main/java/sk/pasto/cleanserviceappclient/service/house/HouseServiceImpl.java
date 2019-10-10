@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
-import sk.pasto.cleanserviceappclient.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
