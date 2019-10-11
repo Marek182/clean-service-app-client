@@ -24,19 +24,13 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
     }
 
     public House findById(int id) {
-
-//        String url = BASE_REST_URL + "/houses/" + id;
-        String url = "http://localhost:8080/api/houses/" + id;
-
+        String url = BASE_API_PATH + "/" + id;
         House house = restTemplate.getForObject(url, House.class);
         return house;
     }
 
     public List<Person> findPersonByHouseId(int id) {
-
-//        String url = BASE_REST_URL + "/houses/" + id + "/persons";
-        String url = "http://localhost:8080/api/houses/" + id + "/persons";
-
+        String url = BASE_API_PATH + "/" + id + "/persons";
         ResponseEntity<PagedResources<Person>> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<PagedResources<Person>>() {});
@@ -48,10 +42,7 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     @Override
     public void save(House house) {
-
-//        String url = BASE_REST_URL + "/houses";
-        String url = "http://localhost:8080/api/houses";
-
+        String url = BASE_API_PATH + "/";
         HttpEntity<House> entity = new HttpEntity<>(house);
         House response = restTemplate.postForObject(url, entity, House.class);
     }
