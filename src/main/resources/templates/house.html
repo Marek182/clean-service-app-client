@@ -38,7 +38,9 @@
             <td th:text="${house.entryNumber}"/>
             <td th:text="${house.city}"/>
             <td>
-                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/persons'}">view</a>
+                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/persons'}">view | </a>
+                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/updateForm'}">update |</a>
+                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/delete'}">delete </a>
             </td>
         </tr>
 

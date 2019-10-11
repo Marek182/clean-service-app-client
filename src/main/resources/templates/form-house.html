@@ -18,20 +18,27 @@
 
         <table>
             <tr>
+                <td th:text="${house.resourceId}"/>
+            </tr>
+            <tr>
                 <td>Street:</td>
                 <td><input type="text" th:field="*{street}"></td>
+                <td th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Name Error</td>
             </tr>
             <tr>
                 <td>House number:</td>
                 <td><input type="text" th:field="*{houseNumber}"></td>
+                <td th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">Name Error</td>
             </tr>
             <tr>
                 <td>Entry number:</td>
                 <td><input type="text" th:field="*{entryNumber}"></td>
+                <td th:if="${#fields.hasErrors('entryNumber')}" th:errors="*{entryNumber}">Name Error</td>
             </tr>
             <tr>
                 <td>City:</td>
                 <td><input type="text" th:field="*{city}"></td>
+                <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Name Error</td>
             </tr>
         </table>
 

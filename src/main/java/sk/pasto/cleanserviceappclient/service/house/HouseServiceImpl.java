@@ -42,10 +42,18 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     @Override
     public void save(House house) {
-        String url = BASE_API_PATH + "/";
-        HttpEntity<House> entity = new HttpEntity<>(house);
-        House response = restTemplate.postForObject(url, entity, House.class);
+        if ((house.getResourceId()) == null) {
+            String url = BASE_API_PATH;
+            HttpEntity<House> entity = new HttpEntity<>(house);
+            House response = restTemplate.postForObject(url, entity, House.class);
+//            restTemplate.exchange(url, HttpMethod.POST, entity, House.class);
+        } else {
+            String url = BASE_API_PATH + "/" + house.getResourceId();
+            HttpEntity<House> entity = new HttpEntity<>(house);
+            restTemplate.exchange(url, HttpMethod.PUT, entity, House.class);
+        }
     }
+
 }
 
 

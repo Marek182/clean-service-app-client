@@ -2,11 +2,13 @@ package sk.pasto.cleanserviceappclient.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 import sk.pasto.cleanserviceappclient.service.house.HouseService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,6 +42,13 @@ public class HouseController {
         return "house";
     }
 
+    @GetMapping("/{id}/updateForm")
+    public String showFormForUpdate(@PathVariable("id") int id, Model model) {
+        House house = houseService.findById(id);
+        model.addAttribute("house", house);
+        return "form-house";
+    }
+
     @GetMapping("/{id}/persons")
     public String showPersonsByHouseId(@PathVariable("id") int id, Model model) {
         List<Person> persons = houseService.findPersonByHouseId(id);
@@ -55,8 +64,15 @@ public class HouseController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("house") House house) {
-        houseService.save(house);
-        return "redirect:/api/houses";
+    public String save(@Valid @ModelAttribute("house") House house,
+                       BindingResult result) {
+        if (result.hasErrors()) {
+            return "form-house";
+        } else {
+            houseService.save(house);
+            return "redirect:/api/houses";
+        }
+
     }
+
 }
