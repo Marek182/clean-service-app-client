@@ -42,7 +42,8 @@ public abstract class AbstractService<T> {
 //        String url = "http://localhost:8080/api/houses/" + id;
 //        ResponseEntity<T> responseEntity = restTemplate.exchange(
 //                url, HttpMethod.GET, null, new ParameterizedTypeReference<T>() {});
-//        return responseEntity.getBody();
+//        T t = responseEntity.getBody();
+//        return t;
 //    }
 
 
