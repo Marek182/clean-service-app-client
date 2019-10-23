@@ -19,4 +19,8 @@ public class Person {
 
     private List<House> houses;
 
+    public Person(String marek, String pastorek) {
+        this.firstName = marek;
+        this.lastName = pastorek;
+    }
 }

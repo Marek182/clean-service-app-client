@@ -18,9 +18,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> findAll() {
-
-
-        return null;
+    public Person findById(int id) {
+        String url = "http://localhost:8080/api/persons/" + id;
+        Person person = restTemplate.getForObject(url, Person.class);
+        return person;
     }
+
 }

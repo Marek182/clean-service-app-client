@@ -1,7 +1,10 @@
 package sk.pasto.cleanserviceappclient._core.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractService<T> {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected String BASE_API_PATH;
     protected RestTemplate restTemplate;
@@ -38,11 +43,12 @@ public abstract class AbstractService<T> {
         return result;
     }
 
-//    public T findById(int id) {
-//        String url = "http://localhost:8080/api/houses/" + id;
-//        ResponseEntity<T> responseEntity = restTemplate.exchange(
-//                url, HttpMethod.GET, null, new ParameterizedTypeReference<T>() {});
-//        T t = responseEntity.getBody();
+//    public Resource<T> findByIdV2(int id) {
+//        String url = BASE_API_PATH +"/"+ id;
+//        logger.info("{}", url);
+//        ResponseEntity<Resource<T>> responseEntity = restTemplate.exchange(
+//                url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<T>>() {});
+//        Resource<T> t = responseEntity.getBody();
 //        return t;
 //    }
 

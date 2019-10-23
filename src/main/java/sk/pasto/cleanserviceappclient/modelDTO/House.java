@@ -34,4 +34,15 @@ public class House {
 
     private List<Service> services;
 
+    public House(String street, int houseNumber, int entryNumber, String city) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.entryNumber = entryNumber;
+        this.city = city;
+    }
+
+    public void addPerson(Person person) {
+        this.persons.add(person);
+    }
+
 }
