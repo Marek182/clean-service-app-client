@@ -95,13 +95,6 @@ public class HouseController {
         }
 
     }
-
-    @GetMapping("/adperson")
-    public String addPersons() {
-        houseService.addPersonToHouse(3, 8);
-        return "list-houses";
-    }
-
 }
 
 
