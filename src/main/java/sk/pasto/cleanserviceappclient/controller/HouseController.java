@@ -74,7 +74,7 @@ public class HouseController {
     @PostMapping("/{houseId}/addPersonToHouse")
     public String addPersonToHouse(@PathVariable int houseId, @ModelAttribute("personId") ID personId) {
         houseService.addPersonToHouse(houseId, personId.getId());
-        return "redirect:/api/houses/{id}/persons";
+        return "redirect:/api/houses/{houseId}/persons";
     }
 
     @GetMapping("/addForm")
