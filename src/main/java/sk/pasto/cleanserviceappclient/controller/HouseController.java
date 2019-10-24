@@ -1,13 +1,8 @@
 package sk.pasto.cleanserviceappclient.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +11,7 @@ import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 import sk.pasto.cleanserviceappclient.service.house.HouseService;
 import sk.pasto.cleanserviceappclient.service.person.PersonService;
+import sk.pasto.cleanserviceappclient.utils.ID;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -48,51 +44,37 @@ public class HouseController {
         return "list-houses";
     }
 
-//    @GetMapping("/{id}")
-//    public String showHouseById(@PathVariable("id") int id, Model model) {
-//        House house = houseService.findByIdV1(id);
-//        model.addAttribute("house", house);
-//        return "house";
-//    }
-
-//    @GetMapping("/{id}")
-//    public String showHouseById(@PathVariable("id") int id, Model model) {
-//        Resource<House> houseResource = houseService.findByIdV2(id);
-//        logger.info("{}", houseResource);
-//        House house = houseResource.getContent();
-//        Link link = houseResource.getLink("persons");
-//        String l = link.getHref();
-//        model.addAttribute("house", house);
-//        model.addAttribute("link", l);
-//        return "house";
-//    }
-
     @GetMapping("/{id}")
-    public String showHouseById(@PathVariable("id") int id, Model model) {
-        ResponseEntity<House> houseResource = houseService.getForEntity(id);
-        logger.info("{}", houseResource);
-        House house = houseResource.getBody();
-//        Link link = houseResource.getLink("persons");
-//        String l = link.getHref();
+    public String showHouseById(@PathVariable int id, Model model) {
+        House house = houseService.findById(id);
         model.addAttribute("house", house);
-//        model.addAttribute("link", l);
         return "house";
     }
 
     @GetMapping("/{id}/updateForm")
-    public String showFormForUpdate(@PathVariable("id") int id, Model model) {
-        House house = houseService.findByIdV1(id);
-
+    public String showFormForUpdate(@PathVariable int id, Model model) {
+        House house = houseService.findById(id);
         model.addAttribute("house", house);
-
         return "form-house";
     }
 
     @GetMapping("/{id}/persons")
-    public String showPersonsByHouseId(@PathVariable("id") int id, Model model) {
-        List<Person> persons = houseService.findPersonByHouseId(id);
-        model.addAttribute("persons", persons);
+    public String showPersonsByHouseId(@PathVariable int id, Model model) {
+        List<Person> oldPersons = houseService.findPersonsByHouseId(id);
+        List<Person> allPersons = personService.findAll();
+        ID newPersonId = new ID();
+
+        model.addAttribute("houseId", id);
+        model.addAttribute("oldPersons", oldPersons);
+        model.addAttribute("allPersons", allPersons);
+        model.addAttribute("newPersonId", newPersonId);
         return "house-person";
+    }
+
+    @PostMapping("/{houseId}/addPersonToHouse")
+    public String addPersonToHouse(@PathVariable int houseId, @ModelAttribute("personId") ID personId) {
+        houseService.addPersonToHouse(houseId, personId.getId());
+        return "redirect:/api/houses/{id}/persons";
     }
 
     @GetMapping("/addForm")
@@ -112,6 +94,12 @@ public class HouseController {
             return "redirect:/api/houses";
         }
 
+    }
+
+    @GetMapping("/adperson")
+    public String addPersons() {
+        houseService.addPersonToHouse(3, 8);
+        return "list-houses";
     }
 
 }

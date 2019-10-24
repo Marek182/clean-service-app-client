@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Person {
+public class Person implements Serializable {
 
     private int resourceId;
 
@@ -19,8 +20,4 @@ public class Person {
 
     private List<House> houses;
 
-    public Person(String marek, String pastorek) {
-        this.firstName = marek;
-        this.lastName = pastorek;
-    }
 }

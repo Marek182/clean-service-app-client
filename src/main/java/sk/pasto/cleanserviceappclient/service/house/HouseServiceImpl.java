@@ -2,20 +2,19 @@ package sk.pasto.cleanserviceappclient.service.house;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
+import sk.pasto.cleanserviceappclient.service.person.PersonService;
+import sk.pasto.cleanserviceappclient.utils.Utils;
 
 import java.util.*;
 
@@ -24,61 +23,24 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private PersonService personService;
+
     public HouseServiceImpl(RestTemplate restTemplate, @Value("${base.api.path}") String basePath) {
         super(restTemplate, basePath + "houses");
     }
 
-    public ResponseEntity<House> getForEntity(int id) {
-        String url = BASE_API_PATH + "/" + id;
-        ResponseEntity<House> entity = restTemplate.getForEntity(url,
-                House.class,
-                Integer.toString(id));
-        logger.info("Status code value: {}", entity.getStatusCodeValue());
-        logger.info("HTTP Header 'ContentType': {}", entity.getHeaders().getContentType());
-        return entity;
-    }
-
-        public House findByIdV1(int id) {
-        String url = BASE_API_PATH + "/" + id;
-        House house = restTemplate.getForObject(url, House.class);
+    // retrieve house by id
+    public House findById(int id) {
+        House house = getHouseById(id).getContent();
         return house;
     }
 
-    // add person to house
-    public void addPersonToHouse(int id, Person person) {
-        Resource<House> houseResource = findByIdV2(id);
-        // link na ludi na dome http://localhost:8080/houses/{id}/persons
-        String link = houseResource.getLink("persons").getHref();
-
-        ResponseEntity<Resources<Resource<Person>>> responseEntities = restTemplate.exchange(
-                link, HttpMethod.GET, null,
-                new ParameterizedTypeReference<Resources<Resource<Person>>>() {});
-
-        Collection<Resource<Person>> content = responseEntities.getBody().getContent();
-        Set<String> urls = new HashSet<>();
-        for (Resource<Person> res: content) {
-            urls.add(res.getLink("self").getHref());
-        }
-
-    }
-
-    public Resource<House> findByIdV2(int id) {
-        String url = BASE_API_PATH + "/" + id;
-        ResponseEntity<Resource<House>> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<House>>() {});
-        Resource<House> houseResource = responseEntity.getBody();
-        return houseResource;
-    }
-
-    public List<Person> findPersonByHouseId(int id) {
-        String url = BASE_API_PATH + "/" + id + "/persons";
-        ResponseEntity<Resources<Resource<Person>>> responseEntities = restTemplate.exchange(
-                url, HttpMethod.GET, null,
-                new ParameterizedTypeReference<Resources<Resource<Person>>>() {});
-        Resources<Resource<Person>> resource = responseEntities.getBody();
+    public List<Person> findPersonsByHouseId(int id) {
+        Resources<Resource<Person>> resource = getPersonResourcesByHouseId(id);
         Collection<Resource<Person>> content = resource.getContent();
         List<Person> persons = new ArrayList<>();
-        for (Resource<Person> res: content) {
+        for (Resource<Person> res : content) {
             persons.add(res.getContent());
         }
         return persons;
@@ -100,7 +62,49 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     }
 
+    public void addPersonToHouse(int houseId, int personId) {
+        String houseUrl = BASE_API_PATH + "/" + houseId + "/persons";
+        // retrieve exists persons for house
+        Resources<Resource<Person>> personResources = getPersonResourcesByHouseId(houseId);
+        // retrieve new person who will by add
+        Resource<Person> personResource = personService.findPersonById(personId);
+        // create string of all persons
+        String links = Utils.getLinksForAssociatedEntity(personResources, personResource);
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Content-type", "text/uri-list");
+        HttpEntity<String> httpEntity = new HttpEntity<>(
+                links, requestHeaders);
+
+        ResponseEntity<String> exchange = restTemplate.exchange(houseUrl,
+                HttpMethod.PUT, httpEntity, String.class);
+
+    }
+
+    /**
+     *
+     * HELPER METHODS
+     *
+     */
+
+    public Resources<Resource<Person>> getPersonResourcesByHouseId(int id) {
+        String url = BASE_API_PATH + "/" + id + "/persons";
+        ResponseEntity<Resources<Resource<Person>>> responseEntities = restTemplate.exchange(
+                url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<Resources<Resource<Person>>>() {});
+        Resources<Resource<Person>> resources = responseEntities.getBody();
+        return resources;
+    }
+
+    public Resource<House> getHouseById(int id) {
+        String url = BASE_API_PATH + "/" + id;
+        ResponseEntity<Resource<House>> responseEntity = restTemplate.exchange(
+                url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<House>>() {});
+        Resource<House> resource = responseEntity.getBody();
+        return resource;
+    }
 }
+
 
 
 

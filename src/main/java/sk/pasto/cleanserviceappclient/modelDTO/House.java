@@ -15,7 +15,6 @@ public class House {
 
     private Integer resourceId;
 
-//    @NotBlank(message = "Zadajte názov ulice")
     @Size(message = "Názov ulice musí byť v rozsahu 2-20 písmen", min = 2, max = 20)
     private String street;
 
@@ -33,16 +32,5 @@ public class House {
     private List<Person> persons;
 
     private List<Service> services;
-
-    public House(String street, int houseNumber, int entryNumber, String city) {
-        this.street = street;
-        this.houseNumber = houseNumber;
-        this.entryNumber = entryNumber;
-        this.city = city;
-    }
-
-    public void addPerson(Person person) {
-        this.persons.add(person);
-    }
 
 }

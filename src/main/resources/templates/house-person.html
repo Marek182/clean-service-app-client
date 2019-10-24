@@ -10,9 +10,7 @@
 
     <h2>Person on House</h2>
     <hr>
-
     <table>
-
         <thead>
         <tr>
             <th>First name</th>
@@ -20,24 +18,43 @@
             <th>Houses</th>
         </tr>
         </thead>
-
         <tbody>
-
-        <tr th:each="person : ${persons}">
-
-            <input type="hidden" th:value="${person.resourceId}" />
-
-            <td th:text="${person.firstName}"/>
-            <td th:text="${person.lastName}"/>
-            <td>
-<!--                <a th:href="@{'/api/houses/' + ${}}">view</a>-->
-            </td>
+        <tr th:each="oldPerson : ${oldPersons}">
+            <td th:text="${oldPerson.firstName}"/>
+            <td th:text="${oldPerson.lastName}"/>
         </tr>
-
         </tbody>
-
     </table>
 
+</div>
+
+<div class="container">
+    <h3>Pridať zamestnanca do týmu</h3>
+    <br>
+    <form action="#" th:action="@{/api/houses/__${houseId}__/addPersonToHouse}"
+          th:object="${newPersonId}" method="post">
+
+        <table>
+
+            <tbody>
+            <tr>
+                <td><b>Vyber zamestnanca</b></td>
+                <td>
+                    <select th:field="*{id}">
+
+                        <option th:each="person : ${allPersons}"
+                                th:value="${person.resourceId}"
+                                th:utext="${person.lastName}"/>
+                    </select>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">Save</button>
+
+    </form>
 </div>
 
 </body>
