@@ -10,6 +10,12 @@
     <h2>New House</h2>
 
     <hr>
+    <div>
+        <div>
+            <a th:href="@{/api/houses/__${house.resourceId}__}">Späť</a>
+        </div>
+    </div>
+    <hr>
 
     <form action="#" th:action="@{/api/houses/save}"
           th:object="${house}" method="post">

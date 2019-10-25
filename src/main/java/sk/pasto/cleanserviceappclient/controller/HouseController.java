@@ -14,6 +14,7 @@ import sk.pasto.cleanserviceappclient.service.person.PersonService;
 import sk.pasto.cleanserviceappclient.utils.ID;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Controller
@@ -44,11 +45,24 @@ public class HouseController {
         return "list-houses";
     }
 
+    @GetMapping("/addForm")
+    public String showFormForAdd(Model model) {
+        House house = new House();
+        model.addAttribute("house", house);
+        return "form-house";
+    }
+
     @GetMapping("/{id}")
     public String showHouseById(@PathVariable int id, Model model) {
         House house = houseService.findById(id);
         model.addAttribute("house", house);
         return "house";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteHouse(@PathVariable Integer id) {
+        houseService.deleteHouseById(id);
+        return "redirect:/api/houses";
     }
 
     @GetMapping("/{id}/updateForm")
@@ -62,11 +76,12 @@ public class HouseController {
     public String showPersonsByHouseId(@PathVariable int id, Model model) {
         List<Person> oldPersons = houseService.findPersonsByHouseId(id);
         List<Person> allPersons = personService.findAll();
+        House house = houseService.findById(id);
         ID newPersonId = new ID();
 
-        model.addAttribute("houseId", id);
         model.addAttribute("oldPersons", oldPersons);
         model.addAttribute("allPersons", allPersons);
+        model.addAttribute("house", house);
         model.addAttribute("newPersonId", newPersonId);
         return "house-person";
     }
@@ -77,11 +92,10 @@ public class HouseController {
         return "redirect:/api/houses/{houseId}/persons";
     }
 
-    @GetMapping("/addForm")
-    public String showFormForAdd(Model model) {
-        House house = new House();
-        model.addAttribute("house", house);
-        return "form-house";
+    @GetMapping("/{houseId}/persons/{personId}/delete")
+    public String deletePersonFromHouse(@PathVariable Integer houseId, @PathVariable Integer personId) {
+        houseService.deletePersonFromHouse(houseId, personId);
+        return "redirect:/api/houses/{houseId}/persons";
     }
 
     @PostMapping("/save")

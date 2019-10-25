@@ -1,5 +1,7 @@
 package sk.pasto.cleanserviceappclient.service.house;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,15 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     // retrieve house by id
     public House findById(int id) {
-        House house = getHouseById(id).getContent();
+        House house = getPersonResourceById(id).getContent();
         return house;
+    }
+
+    // delete house by id
+    public void deleteHouseById(Integer id) {
+        // http://localhost:8080/api/houses/{id}
+        String url = BASE_API_PATH + "/" + id;
+        restTemplate.delete(url);
     }
 
     public List<Person> findPersonsByHouseId(int id) {
@@ -81,9 +90,14 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     }
 
+    public void deletePersonFromHouse(Integer houseId, Integer personId) {
+        String url = BASE_API_PATH + "/" + houseId + "/persons/" + personId;
+        restTemplate.delete(url);
+    }
+
     /**
      *
-     * HELPER METHODS
+     * HELPER METHODS - returning resource or resources
      *
      */
 
@@ -96,7 +110,7 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
         return resources;
     }
 
-    public Resource<House> getHouseById(int id) {
+    public Resource<House> getPersonResourceById(int id) {
         String url = BASE_API_PATH + "/" + id;
         ResponseEntity<Resource<House>> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<House>>() {});

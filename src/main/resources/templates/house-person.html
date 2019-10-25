@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,20 +8,30 @@
 
 <div class="container">
 
-    <h2>Person on House</h2>
+    <h2>Zamestnanci prideleni k bytovke</h2>
+    <h4 th:text="'Ulica: ' + ${house.street} + ', Číslo domu: ' + ${house.houseNumber}
+                           + ', Číslo vchodu: ' + ${house.entryNumber} + ', Mesto: ' + ${house.city}"></h4>
     <hr>
+    <div>
+        <a th:href="@{/api/houses/__${house.resourceId}__}">Späť</a>
+    </div>
+    <hr>
+
     <table>
         <thead>
         <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Houses</th>
+            <th>Meno</th>
+            <th>Priezvisko</th>
+            <th>Akcia</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="oldPerson : ${oldPersons}">
             <td th:text="${oldPerson.firstName}"/>
             <td th:text="${oldPerson.lastName}"/>
+            <td>
+                <a th:href="@{/api/houses/__${house.resourceId}__/persons/__${oldPerson.resourceId}__/delete}">Odstráň</a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -30,8 +40,8 @@
 
 <div class="container">
     <h3>Pridať zamestnanca do týmu</h3>
-    <br>
-    <form action="#" th:action="@{/api/houses/__${houseId}__/addPersonToHouse}"
+
+    <form action="#" th:action="@{/api/houses/__${house.resourceId}__/addPersonToHouse}"
           th:object="${newPersonId}" method="post">
 
         <table>

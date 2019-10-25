@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
-import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
-
-import java.util.List;
 
 @Service
 public class PersonServiceImpl extends AbstractService<Person> implements PersonService {
@@ -24,7 +21,7 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
 
     @Override
     public Person findById(int id) {
-        String url = "http://localhost:8080/api/persons/" + id;
+        String url = BASE_API_PATH + "/" + id;
         Person person = restTemplate.getForObject(url, Person.class);
         return person;
     }

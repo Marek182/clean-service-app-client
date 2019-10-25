@@ -9,12 +9,6 @@
 
     <h2>House Detail</h2>
 
-    <div>
-        <a th:href="@{/api/houses/addForm}">
-            New House
-        </a>
-    </div>
-
     <hr>
 
     <table>
@@ -38,7 +32,7 @@
             <td th:text="${house.entryNumber}"/>
             <td th:text="${house.city}"/>
             <td>
-                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/persons'}">view | </a>
+                <a th:href="@{'/api/houses/' + ${house.resourceId} + '/persons'}">Tým | </a>
                 <a th:href="@{'/api/houses/' + ${house.resourceId} + '/updateForm'}">update |</a>
                 <a th:href="@{'/api/houses/' + ${house.resourceId} + '/delete'}">delete </a>
             </td>
