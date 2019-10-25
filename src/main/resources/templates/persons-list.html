@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+
+    <h2>Houses</h2>
+    <hr>
+
+    <div>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/api/houses/addForm}">New House</a>
+    </div>
+
+    <hr>
+
+    <table>
+
+        <thead>
+<!--        <tr>-->
+<!--            <th>Street <a th:href="@{/api/houses/sort(param='street')}">asc|</a><a th:href="@{/api/houses/sort(param='street,desc')}">desc</a></th>-->
+<!--            <th>House number <a th:href="@{/api/houses/sort(param='houseNumber')}">asc|</a><a th:href="@{/api/houses/sort(param='houseNumber,desc')}">desc</a></th>-->
+<!--            <th>Entry number <a th:href="@{/api/houses/sort(param='entryNumber')}">asc|</a><a th:href="@{/api/houses/sort(param='entryNumber,desc')}">desc</a></th>-->
+<!--            <th>City <a th:href="@{/api/houses/sort(param='city')}">asc|</a><a th:href="@{/api/houses/sort(param='city,desc')}">desc</a></th>-->
+<!--            <th>Detail</th>-->
+<!--        </tr>-->
+            <tr>
+                <th>Mano</th>
+                <th>Priezvisko</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="person : ${persons}">
+            <td th:text="${person.firstName}"/>
+            <td th:text="${person.lastName}"/>
+            <td>
+                <a th:href="@{'/api/persons/' + ${person.resourceId}}">Detail</a>
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+</body>
+</html>

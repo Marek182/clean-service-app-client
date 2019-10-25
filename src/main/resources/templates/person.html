@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Detail zamestnanca</h2>
+
+    <hr>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>Meno</th>
+            <th>Priezvisko</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr>
+
+            <td th:text="${person.firstName}"/>
+            <td th:text="${person.lastName}"/>
+            <td>
+                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/houses'}">Domy | </a>
+                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/updateForm'}">Upraviť |</a>
+                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/delete'}">Vymazať </a>
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

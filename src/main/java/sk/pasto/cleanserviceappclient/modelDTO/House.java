@@ -3,6 +3,7 @@ package sk.pasto.cleanserviceappclient.modelDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 
 import javax.validation.constraints.*;
@@ -15,18 +16,17 @@ public class House {
 
     private Integer resourceId;
 
-    @Size(message = "Názov ulice musí byť v rozsahu 2-20 písmen", min = 2, max = 20)
+    @Pattern(message="Zlý formát názvu ulice",
+            regexp="^[A-ZÁ-Ž]([a-zá-ž]){0,1}(\\s[A-ZÁ-Ža-zá-ž]){0,1}[a-zá-ž]{2,10}(\\s[A-ZÁ-Ž][a-zá-ž]{2,7}){0,1}$")
     private String street;
 
-    @Min(message = "Cislo domu musi byť v rozsahu 1 až 9999", value = 1)
-    @Max(message = "Cislo domu musi byť v rozsahu 1 až 9999", value = 9999)
-    private int houseNumber;
+    @Digits(integer=4, fraction=0, message = "Zlá hodnota, alebo mimo rozsah <1..9999>")
+    private String houseNumber;
 
-    @Min(message = "Cislo vchodu musi byť v rozsahu 1 až 99", value = 1)
-    @Max(message = "Cislo vchodu musí byť v rozsahu 1 až 99", value = 99)
-    private int entryNumber;
+    @Digits(integer=2, fraction=0, message = "Zlá hodnota, alebo mimo rozsah <1..99>")
+    private String entryNumber;
 
-    @Size(message = "Názov mesta musí byť v rozsahu 3 až 20 písmen", min = 3, max = 20)
+    @Pattern(message="Zlý formát názvu mesta", regexp="^[A-ZÁ-Ž][a-zá-ž]{2,7}(\\s[A-ZÁ-Ž][a-zá-ž]{2,7}){0,1}$")
     private String city;
 
     private List<Person> persons;

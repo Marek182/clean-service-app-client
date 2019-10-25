@@ -8,8 +8,8 @@ import java.util.List;
 public interface PersonService {
 
     List<Person> findAll();
-    Person findById(int id);
     Resource<Person> findPersonById(int id);
+    void deleteById(Integer id);
 
 }
 

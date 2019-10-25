@@ -39,11 +39,11 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
     }
 
     // delete house by id
-    public void deleteHouseById(Integer id) {
-        // http://localhost:8080/api/houses/{id}
-        String url = BASE_API_PATH + "/" + id;
-        restTemplate.delete(url);
-    }
+//    public void deleteHouseById(Integer id) {
+//        // http://localhost:8080/api/houses/{id}
+//        String url = BASE_API_PATH + "/" + id;
+//        restTemplate.delete(url);
+//    }
 
     public List<Person> findPersonsByHouseId(int id) {
         Resources<Resource<Person>> resource = getPersonResourcesByHouseId(id);

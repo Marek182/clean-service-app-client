@@ -19,15 +19,8 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
         super(restTemplate, basePath + "persons");
     }
 
-    @Override
-    public Person findById(int id) {
-        String url = BASE_API_PATH + "/" + id;
-        Person person = restTemplate.getForObject(url, Person.class);
-        return person;
-    }
-
     public Resource<Person> findPersonById(int id) {
-        String url = "http://localhost:8080/api/persons/" + id;
+        String url = BASE_API_PATH + "/" + id;
         ResponseEntity<Resource<Person>> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<Person>>() {
                 });

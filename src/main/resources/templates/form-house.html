@@ -12,7 +12,8 @@
     <hr>
     <div>
         <div>
-            <a th:href="@{/api/houses/__${house.resourceId}__}">Späť</a>
+<!--            <a th:href="@{/api/houses/__${house.resourceId}__}">Späť</a>-->
+            <a th:href="@{(${house.resourceId}? '/api/houses/__${house.resourceId}__' : '/api/houses')}">Spat</a>
         </div>
     </div>
     <hr>

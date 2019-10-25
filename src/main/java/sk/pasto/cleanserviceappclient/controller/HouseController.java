@@ -2,7 +2,6 @@ package sk.pasto.cleanserviceappclient.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +13,6 @@ import sk.pasto.cleanserviceappclient.service.person.PersonService;
 import sk.pasto.cleanserviceappclient.utils.ID;
 
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 @Controller
@@ -24,14 +22,14 @@ public class HouseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private HouseService houseService;
-    @Autowired
     private PersonService personService;
 
-    public HouseController(HouseService houseService) {
+    public HouseController(HouseService houseService, PersonService personService) {
         this.houseService = houseService;
+        this.personService = personService;
     }
 
-    @GetMapping(value = {"/", ""})
+    @GetMapping(value = {"", "/"})
     public String showHouses(Model model) {
         List<House> houses = houseService.findAll();
         model.addAttribute("houses", houses);
@@ -61,7 +59,7 @@ public class HouseController {
 
     @GetMapping("/{id}/delete")
     public String deleteHouse(@PathVariable Integer id) {
-        houseService.deleteHouseById(id);
+        houseService.deleteById(id);
         return "redirect:/api/houses";
     }
 

@@ -43,6 +43,12 @@ public abstract class AbstractService<T> {
         return result;
     }
 
+    public void deleteById(Integer id) {
+        // http://localhost:8080/api/houses/{id}
+        String url = BASE_API_PATH + "/" + id;
+        restTemplate.delete(url);
+    }
+
 //    public Resource<T> findByIdV2(int id) {
 //        String url = BASE_API_PATH +"/"+ id;
 //        logger.info("{}", url);
