@@ -14,6 +14,8 @@ import sk.pasto.cleanserviceappclient.utils.ID;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/api/houses")

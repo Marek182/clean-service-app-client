@@ -2,18 +2,233 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Bootstrap Theme</title>
 </head>
 <body>
-<div>
-
-    <h1>Home page</h1>
-    <hr>
-    <div>
-        <a th:href="@{/api/houses}">Houses</a>
-        <a th:href="@{/api/persons}">Persons</a>
+<!-- START HERE -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <div class="container">
+        <a href="index.html" class="navbar-brand">Upratovacie služby DK</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/api/houses}" class="nav-link">Houses</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/api/persons}" class="nav-link">Persons</a>
+                </li>
+            </ul>
+        </div>
     </div>
+</nav>
 
-</div>
+<!-- HOME SECTION -->
+
+<header id="home-section">
+    <div class="dark-overlay">
+        <div class="home-inner container">
+            <div class="row">
+                <div class="col-lg-8 d-none d-lg-block">
+                    <h1 class="display-5">Kontaktujte nás ešte
+                        <strong>dnes</strong> a získate
+                        <strong>plný balík</strong> na mesiac v cene základného
+                    </h1>
+                    <div class="d-flex">
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi corporis cumque dolorem,
+                            magnam magni necessitatibus.
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi corporis cumque dolorem,
+                            magnam magni necessitatibus.
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="p-4 align-self-start">
+                            <i class="fas fa-check fa-2x"></i>
+                        </div>
+                        <div class="p-4 align-self-end">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi corporis cumque dolorem,
+                            magnam magni necessitatibus.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card bg-primary text-center card-form">
+                        <div class="card-body">
+                        <h3>Kontaktný formulár</h3>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="Celé meno">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-lg" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" placeholder="Telefónne číslo">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control form-control-lg" id="message" row="3"></textarea>
+                            </div>
+                            <input type="submit" value="Poslať" class="btn btn-primary btn-outline-light btn-block">
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- SERVICES HEAD-->
+
+<section id="explore-head-section">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center py-4">
+                <h1 class="display-5">Ponúkané balíky</h1>
+                <p class="lead">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dolorem
+                    dolorum ducimus enim ex in incidunt iure molestias mollitia nisi, nostrum
+                    officia perspiciatis reprehenderit voluptatibus?
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE SECTION -->
+
+<section id="explore-section" class="bg-light text-dark py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Basic</h4>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">Basic</div>
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Basic</h4>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- END HERE -->
+<script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+</script>
 </body>
 </html>
