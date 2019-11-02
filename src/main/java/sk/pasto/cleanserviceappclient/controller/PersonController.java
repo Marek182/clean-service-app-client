@@ -3,15 +3,18 @@ package sk.pasto.cleanserviceappclient.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 import sk.pasto.cleanserviceappclient.service.house.HouseService;
 import sk.pasto.cleanserviceappclient.service.person.PersonService;
+import sk.pasto.cleanserviceappclient.utils.ID;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,11 +37,25 @@ public class PersonController {
         return "persons-list";
     }
 
+    @GetMapping("/addForm")
+    public String showFormForAdd(Model model) {
+        Person person = new Person();
+        model.addAttribute("person", person);
+        return "person-form";
+    }
+
     @GetMapping("/{id}")
     public String showPersonById(@PathVariable int id, Model model) {
         Resource<Person> personResource = personService.findPersonById(id);
         Person person = personResource.getContent();
+        List<House> oldHouses = personService.findHousesByPersonId(id);
+        List<House> allHouses = houseService.findAll();
+        ID newHouseId = new ID();
+
         model.addAttribute("person", person);
+        model.addAttribute("oldHouses", oldHouses);
+        model.addAttribute("allHouses", allHouses);
+        model.addAttribute("newHouseId", newHouseId);
         return "person";
     }
 
@@ -46,5 +63,31 @@ public class PersonController {
     public String deletePerson(@PathVariable Integer id) {
         personService.deleteById(id);
         return "redirect:/api/persons";
+    }
+
+    @GetMapping("/{id}/updateForm")
+    public String showFormForUpdate(@PathVariable int id, Model model) {
+        Resource<Person> personResource = personService.findPersonById(id);
+        Person person = personResource.getContent();
+        model.addAttribute("person", person);
+        return "person-form";
+    }
+
+    @GetMapping("/{personId}/houses/{houseId}/delete")
+    public String deleteHouseFromPerson(@PathVariable Integer personId, @PathVariable Integer houseId) {
+        houseService.deletePersonFromHouse(houseId, personId);
+        return "redirect:/api/persons/{personId}";
+    }
+
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute("mPerson") Person person,
+                       BindingResult result) {
+        if (result.hasErrors()) {
+            return "person-form";
+        } else {
+            personService.save(person);
+            return "redirect:/api/persons";
+        }
+
     }
 }

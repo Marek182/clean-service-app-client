@@ -14,20 +14,14 @@
 <!-- START HERE -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <div class="container">
-        <a href="index.html" class="navbar-brand">Upratovacie služby DK</a>
+        <a th:href="@{'/'}" class="navbar-brand">Upratovacie služby DK</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/api/houses}" class="nav-link">Houses</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/api/persons}" class="nav-link">Persons</a>
+                    <a th:href="@{/api/dashboard}" class="nav-link">Dashboard</a>
                 </li>
             </ul>
         </div>
@@ -127,42 +121,11 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Basic</h4>
-                        <div class="d-flex">
-                            <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <div class="p-2 align-self-end">
-                                Lorem ipsum
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <div class="p-2 align-self-end">
-                                Lorem ipsum
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <div class="p-2 align-self-end">
-                                Lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
                     <div class="card-header">Basic</div>
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check" style="color: green"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum
@@ -170,7 +133,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-times" style="color: red"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum
@@ -178,7 +141,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-times" style="color: red"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum
@@ -189,11 +152,11 @@
             </div>
             <div class="col-sm-4">
                 <div class="card">
+                    <div class="card-header">Plus</div>
                     <div class="card-body">
-                        <h4 class="card-title text-center">Basic</h4>
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check" style="color: green"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum
@@ -201,7 +164,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check" style="color: green"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum
@@ -209,7 +172,38 @@
                         </div>
                         <div class="d-flex">
                             <div class="p-2 align-self-start">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-times" style="color: red"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">Premium</div>
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check" style="color: green"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check" style="color: green"></i>
+                            </div>
+                            <div class="p-2 align-self-end">
+                                Lorem ipsum
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="p-2 align-self-start">
+                                <i class="fas fa-check" style="color: green"></i>
                             </div>
                             <div class="p-2 align-self-end">
                                 Lorem ipsum

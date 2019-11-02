@@ -7,49 +7,198 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Bootstrap Theme</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>Zoznam bytoviek</title>
 </head>
-
 <body>
-
 <!-- START HERE -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+        <a th:href="@{'/'}" class="navbar-brand">Upratovacie služby DK</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a th:href="@{/api/dashboard}" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/api/houses}" class="nav-link">Bytovky</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/api/persons}" class="nav-link">Zamestnanci</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/api/persons}" class="nav-link">Zákazníci</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">
+                        <i class="fas fa-user"></i> Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">
+                        <i class="fas fa-user-times"></i> Odhlásiť</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<div class="container">
 
-    <h2>Detail zamestnanca</h2>
+<!-- HEADER -->
+<header id="main-header" class="py-3 text-primary bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="far fa-building"></i> Bytovky</h1>
+            </div>
+        </div>
+    </div>
+</header>
 
-    <hr>
+<!-- ACTIONS -->
 
-    <table>
+<section id="actions" class="py-2 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <a th:href="@{'/api/houses'}" class="btn btn-primary btn-block">
+                    <i class="far fa-building"></i> Bytovky
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a th:href="@{'/api/persons'}" class="btn btn-primary btn-block">
+                    <i class="fas fa-users"></i> Zamestnanci
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a href="#" class="btn btn-primary btn-block">
+                    <i class="fas fa-users"></i> Zákazníci
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <a th:href="@{'/api/houses/addForm'}" class="btn btn-success btn-block">
+                    <i class="fas fa-plus"></i> Pridať bytovku
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a th:href="@{'/api/persons/addForm'}" class="btn btn-success btn-block">
+                    <i class="fas fa-user-plus"></i> Pridať zamestnanca
+                </a>
+            </div>
+            <div class="col-md-4 mb-2">
+                <a th:href="@{/api/persons/addForm}" class="btn btn-success btn-block">
+                    <i class="fas fa-user-plus"></i> Pridať zákazníka
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <thead>
-        <tr>
-            <th>Meno</th>
-            <th>Priezvisko</th>
-        </tr>
-        </thead>
+<!-- CARDS -->
 
-        <tbody>
+<section id="house-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-1">
+                <div class="card">
+                    <div class="card-header">
+                        Info
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        Zamestnanec
+                                    </div>
+                                    <table class="table table-sm table-borderless mt-1 mb-1">
+                                        <tr>
+                                            <td>ID: </td>
+                                            <td th:text="${person.resourceId}"/>
+                                        </tr>
+                                        <tr>
+                                            <td>Meno: </td>
+                                            <td th:text="${person.firstName}"/>
+                                        </tr>
+                                        <tr>
+                                            <td>Priezvisko: </td>
+                                            <td th:text="${person.lastName}"/>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-success btn-block" th:href="@{/api/persons/__${person.resourceId}__/updateForm}"><i class="fas fa-pencil-alt"></i> Upraviť</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-danger btn-block" th:href="@{/api/persons/__${person.resourceId}__/delete}"><i class="fas fa-trash"></i> Odstrániť</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        Pridelené bytovky
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card mb-2" th:each="house: ${oldHouses}">
+                                                <table>
+                                                    <tr>
+                                                        <td class="text-left"><p class="m-0 ml-2" th:text="${house.city} + ', ' + ${house.street} + ', ' + ${house.houseNumber} + '-' + ${house.entryNumber}"/></td>
+                                                        <td class="text-right"><a class="btn btn-sm btn-danger" th:href="@{/api/persons/__${person.resourceId}__/houses/__${house.resourceId}__/delete}"><i class="fas fa-times"></i></a></td>
+                                                    </tr>
+                                                </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4  col-md-4 mb-1">
+                <div class="card">
+                    <div class="card-header">Rozšíriť tím</div>
+                    <div class="card-body">
+                        <form class="form-group" action="#" th:action="@{/api/persons/__${person.resourceId}__/addHouseToPerson}"
+                              th:object="${newHouseId}" method="post">
+                            <label>Vyber bytovku</label>
+                            <select class="form-control" th:field="*{id}">
+                                <option th:each="house : ${allHouses}"
+                                        th:value="${house.resourceId}"
+                                        th:utext="${house.city} + ', ' + ${house.street} + ', ' + ${house.houseNumber} + '-' + ${house.entryNumber}"/>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-block mt-2"><i class="fas fa-check"></i> Uložiť</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <tr>
+<!-- FOOTER -->
 
-            <td th:text="${person.firstName}"/>
-            <td th:text="${person.lastName}"/>
-            <td>
-                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/houses'}">Domy | </a>
-                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/updateForm'}">Upraviť |</a>
-                <a th:href="@{'/api/persons/' + ${person.resourceId} + '/delete'}">Vymazať </a>
-            </td>
-        </tr>
-
-        </tbody>
-
-    </table>
-</div>
-
+<footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="lead text-center">
+                    Copyright &copy;
+                    <span id="year"></span>
+                    Upratovacie služby DK
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
 <!-- END HERE -->
-
 <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -35,6 +35,10 @@ public class HouseController {
     public String showHouses(Model model) {
         List<House> houses = houseService.findAll();
         model.addAttribute("houses", houses);
+
+        // for model form
+        House house = new House();
+        model.addAttribute("house", house);
         return "list-houses";
     }
 
@@ -55,7 +59,14 @@ public class HouseController {
     @GetMapping("/{id}")
     public String showHouseById(@PathVariable int id, Model model) {
         House house = houseService.findById(id);
+        List<Person> oldPersons = houseService.findPersonsByHouseId(id);
+        List<Person> allPersons = personService.findAll();
+        ID newPersonId = new ID();
+
+        model.addAttribute("oldPersons", oldPersons);
+        model.addAttribute("allPersons", allPersons);
         model.addAttribute("house", house);
+        model.addAttribute("newPersonId", newPersonId);
         return "house";
     }
 
@@ -89,13 +100,13 @@ public class HouseController {
     @PostMapping("/{houseId}/addPersonToHouse")
     public String addPersonToHouse(@PathVariable int houseId, @ModelAttribute("personId") ID personId) {
         houseService.addPersonToHouse(houseId, personId.getId());
-        return "redirect:/api/houses/{houseId}/persons";
+        return "redirect:/api/houses/{houseId}";
     }
 
     @GetMapping("/{houseId}/persons/{personId}/delete")
     public String deletePersonFromHouse(@PathVariable Integer houseId, @PathVariable Integer personId) {
         houseService.deletePersonFromHouse(houseId, personId);
-        return "redirect:/api/houses/{houseId}/persons";
+        return "redirect:/api/houses/{houseId}";
     }
 
     @PostMapping("/save")
@@ -109,6 +120,7 @@ public class HouseController {
         }
 
     }
+
 }
 
 

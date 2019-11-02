@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Person implements Serializable {
 
-    private int resourceId;
+    private Integer resourceId;
 
     private String firstName;
 

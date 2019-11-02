@@ -13,4 +13,8 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/api/dashboard")
+    public String showDashboard() {
+        return "dashboard";
+    }
 }
