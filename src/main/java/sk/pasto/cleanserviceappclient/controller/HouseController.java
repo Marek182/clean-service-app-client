@@ -58,8 +58,8 @@ public class HouseController {
     }
 
     @GetMapping("/{id}")
-    public String showHouseById(@PathVariable int id, Model model) {
-        House house = houseService.findById(id);
+    public String showHouseById(@PathVariable Integer id, Model model) {
+        House house = houseService.findById(id).getContent();
         List<Person> oldPersons = houseService.findPersonsByHouseId(id);
         List<Person> allPersons = personService.findAll();
         ID newPersonId = new ID();
@@ -78,25 +78,25 @@ public class HouseController {
     }
 
     @GetMapping("/{id}/updateForm")
-    public String showFormForUpdate(@PathVariable int id, Model model) {
-        House house = houseService.findById(id);
+    public String showFormForUpdate(@PathVariable Integer id, Model model) {
+        House house = houseService.findById(id).getContent();
         model.addAttribute("house", house);
         return "form-house";
     }
 
-    @GetMapping("/{id}/persons")
-    public String showPersonsByHouseId(@PathVariable int id, Model model) {
-        List<Person> oldPersons = houseService.findPersonsByHouseId(id);
-        List<Person> allPersons = personService.findAll();
-        House house = houseService.findById(id);
-        ID newPersonId = new ID();
-
-        model.addAttribute("oldPersons", oldPersons);
-        model.addAttribute("allPersons", allPersons);
-        model.addAttribute("house", house);
-        model.addAttribute("newPersonId", newPersonId);
-        return "house-person";
-    }
+//    @GetMapping("/{id}/persons")
+//    public String showPersonsByHouseId(@PathVariable Integer id, Model model) {
+//        List<Person> oldPersons = houseService.findPersonsByHouseId(id);
+//        List<Person> allPersons = personService.findAll();
+//        House house = houseService.findById(id).getContent();
+//        ID newPersonId = new ID();
+//
+//        model.addAttribute("oldPersons", oldPersons);
+//        model.addAttribute("allPersons", allPersons);
+//        model.addAttribute("house", house);
+//        model.addAttribute("newPersonId", newPersonId);
+//        return "house-person";
+//    }
 
     @PostMapping("/{houseId}/addPersonToHouse")
     public String addPersonToHouse(@PathVariable int houseId, @ModelAttribute("personId") ID personId) {

@@ -10,7 +10,7 @@ public interface HouseService {
 
     List<House> findAll();
     List<House> findAll(String sort);
-    House findById(int id);
+    Resource<House> findById(Integer id);
     void deleteById(Integer id);
     List<Person> findPersonsByHouseId(int id);
     void save(House house);

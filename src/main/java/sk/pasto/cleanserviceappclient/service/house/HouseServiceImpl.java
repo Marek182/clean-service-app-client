@@ -27,19 +27,17 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
         super(restTemplate, basePath + "houses");
     }
 
-    // retrieve house by id
-    public House findById(int id) {
-        House house = getPersonResourceById(id).getContent();
-        return house;
+    @Override
+    public Resource<House> findById(Integer id) {
+        String url = BASE_API_PATH + "/" + id;
+        ResponseEntity<Resource<House>> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Resource<House>>() {
+                });
+        Resource<House> houseResource = responseEntity.getBody();
+        return houseResource;
     }
 
-    // delete house by id
-//    public void deleteHouseById(Integer id) {
-//        // http://localhost:8080/api/houses/{id}
-//        String url = BASE_API_PATH + "/" + id;
-//        restTemplate.delete(url);
-//    }
-
+    @Override
     public List<Person> findPersonsByHouseId(int id) {
         Resources<Resource<Person>> resource = getPersonResourcesByHouseId(id);
         Collection<Resource<Person>> content = resource.getContent();
@@ -80,7 +78,6 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
         ResponseEntity<String> exchange = restTemplate.exchange(houseUrl,
                 HttpMethod.PUT, httpEntity, String.class);
-
     }
 
     public void deletePersonFromHouse(Integer houseId, Integer personId) {

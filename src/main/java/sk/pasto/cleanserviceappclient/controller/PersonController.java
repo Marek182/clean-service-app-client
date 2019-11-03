@@ -49,12 +49,12 @@ public class PersonController {
         Resource<Person> personResource = personService.findPersonById(id);
         Person person = personResource.getContent();
         List<House> oldHouses = personService.findHousesByPersonId(id);
-        List<House> allHouses = houseService.findAll();
+        List<House> notAddedHouses = personService.findNotAddedHousesByPersonId(id);
         ID newHouseId = new ID();
 
         model.addAttribute("person", person);
         model.addAttribute("oldHouses", oldHouses);
-        model.addAttribute("allHouses", allHouses);
+        model.addAttribute("allHouses", notAddedHouses);
         model.addAttribute("newHouseId", newHouseId);
         return "person";
     }
@@ -72,6 +72,14 @@ public class PersonController {
         model.addAttribute("person", person);
         return "person-form";
     }
+
+    @PostMapping("/{personId}/addHouseToPerson")
+    public String addHouseToPerson(@PathVariable int personId, @ModelAttribute("houseId") ID houseId) {
+        Resource<House> houseResource = houseService.findById(houseId.getId());
+        personService.addHouseToPerson(personId, houseResource);
+        return "redirect:/api/persons/{personId}";
+    }
+
 
     @GetMapping("/{personId}/houses/{houseId}/delete")
     public String deleteHouseFromPerson(@PathVariable Integer personId, @PathVariable Integer houseId) {

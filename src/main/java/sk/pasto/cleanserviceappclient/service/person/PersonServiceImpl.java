@@ -6,6 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
+import sk.pasto.cleanserviceappclient.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +23,6 @@ import java.util.List;
 @Service
 public class PersonServiceImpl extends AbstractService<Person> implements PersonService {
 
-    @Autowired
     public PersonServiceImpl(RestTemplate restTemplate, @Value("${base.api.path}") String basePath) {
         super(restTemplate, basePath + "persons");
     }
@@ -39,8 +40,8 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
     public List<House> findHousesByPersonId(Integer id) {
         String url = BASE_API_PATH + "/" + id + "/houses";
         ResponseEntity<Resources<Resource<House>>> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Resources<Resource<House>>>(){
-
+                restTemplate.exchange(url, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<Resources<Resource<House>>>(){
                 });
         Collection<Resource<House>> housesResources = responseEntity.getBody().getContent();
         List<House> houses = new ArrayList<>();
@@ -48,6 +49,16 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
             houses.add(resource.getContent());
         }
         return houses;
+    }
+
+    @Override
+    public List<House> findNotAddedHousesByPersonId(Integer id) {
+        String url = BASE_API_PATH + "/" + id + "/houses/notadded";
+        ResponseEntity<List<House>> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<House>>(){
+                        });
+        return responseEntity.getBody();
     }
 
     @Override
@@ -63,4 +74,35 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
         }
 
     }
+
+    @Override
+    public void addHouseToPerson(int personId, Resource<House> houseResource) {
+        String houseUrl = BASE_API_PATH + "/" + personId + "/houses";
+        Resources<Resource<House>> houseResources = getHousesByPersonId(personId);
+        String links = Utils.getLinksForAssociatedEntity(houseResources, houseResource);
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Content-type", "text/uri-list");
+        HttpEntity<String> httpEntity = new HttpEntity<>(
+                links, requestHeaders);
+
+        ResponseEntity<String> exchange = restTemplate.exchange(houseUrl,
+                HttpMethod.PUT, httpEntity, String.class);
+    }
+
+    /**
+     *
+     * HELPER
+     *
+     */
+
+    private Resources<Resource<House>> getHousesByPersonId(Integer id) {
+        String url = BASE_API_PATH + "/" + id + "/houses";
+        ResponseEntity<Resources<Resource<House>>> responseEntities = restTemplate.exchange(
+                url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<Resources<Resource<House>>>() {});
+        Resources<Resource<House>> resources = responseEntities.getBody();
+        return resources;
+    }
+
 }
