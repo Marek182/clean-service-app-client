@@ -1,5 +1,6 @@
 package sk.pasto.cleanserviceappclient.service.house;
 
+import org.springframework.hateoas.Resource;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 
@@ -13,7 +14,7 @@ public interface HouseService {
     void deleteById(Integer id);
     List<Person> findPersonsByHouseId(int id);
     void save(House house);
-    void addPersonToHouse(int houseId, int personId);
+    void addPersonToHouse(int houseId, Resource<Person> personResource);
     void deletePersonFromHouse(Integer houseId, Integer personId);
 
 }

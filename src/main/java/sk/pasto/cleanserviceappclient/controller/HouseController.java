@@ -2,6 +2,7 @@ package sk.pasto.cleanserviceappclient.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -99,7 +100,8 @@ public class HouseController {
 
     @PostMapping("/{houseId}/addPersonToHouse")
     public String addPersonToHouse(@PathVariable int houseId, @ModelAttribute("personId") ID personId) {
-        houseService.addPersonToHouse(houseId, personId.getId());
+        Resource<Person> personResource = personService.findPersonById(personId.getId());
+        houseService.addPersonToHouse(houseId, personResource);
         return "redirect:/api/houses/{houseId}";
     }
 

@@ -23,9 +23,6 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private PersonService personService;
-
     public HouseServiceImpl(RestTemplate restTemplate, @Value("${base.api.path}") String basePath) {
         super(restTemplate, basePath + "houses");
     }
@@ -69,12 +66,10 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
 
     }
 
-    public void addPersonToHouse(int houseId, int personId) {
+    public void addPersonToHouse(int houseId, Resource<Person> personResource) {
         String houseUrl = BASE_API_PATH + "/" + houseId + "/persons";
         // retrieve exists persons for house
         Resources<Resource<Person>> personResources = getPersonResourcesByHouseId(houseId);
-        // retrieve new person who will by add
-        Resource<Person> personResource = personService.findPersonById(personId);
         // create string of all persons
         String links = Utils.getLinksForAssociatedEntity(personResources, personResource);
 
