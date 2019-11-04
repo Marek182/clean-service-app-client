@@ -61,7 +61,8 @@ public class HouseController {
     public String showHouseById(@PathVariable Integer id, Model model) {
         House house = houseService.findById(id).getContent();
         List<Person> oldPersons = houseService.findPersonsByHouseId(id);
-        List<Person> allPersons = personService.findAll();
+//        List<Person> allPersons = personService.findAll();
+        List<Person> allPersons = houseService.findNotAddedPersonsByHouseId(id);
         ID newPersonId = new ID();
 
         model.addAttribute("oldPersons", oldPersons);

@@ -11,6 +11,7 @@ public interface HouseService {
     List<House> findAll();
     List<House> findAll(String sort);
     Resource<House> findById(Integer id);
+    List<Person> findNotAddedPersonsByHouseId(Integer id);
     void deleteById(Integer id);
     List<Person> findPersonsByHouseId(int id);
     void save(House house);

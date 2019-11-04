@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
+import sk.pasto.cleanserviceappclient.modelDTO.HouseResource;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
 import sk.pasto.cleanserviceappclient.utils.Utils;
 
@@ -54,11 +55,16 @@ public class PersonServiceImpl extends AbstractService<Person> implements Person
     @Override
     public List<House> findNotAddedHousesByPersonId(Integer id) {
         String url = BASE_API_PATH + "/" + id + "/houses/notadded";
-        ResponseEntity<List<House>> responseEntity =
+        ResponseEntity<Resources<Resource<HouseResource>>> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<House>>(){
+                        new ParameterizedTypeReference<Resources<Resource<HouseResource>>>(){
                         });
-        return responseEntity.getBody();
+        Collection<Resource<HouseResource>> resources = responseEntity.getBody().getContent();
+        List<House> houses = new ArrayList<>();
+        for (Resource<HouseResource> rp: resources) {
+            houses.add(rp.getContent().getHouse());
+        }
+        return houses;
     }
 
     @Override

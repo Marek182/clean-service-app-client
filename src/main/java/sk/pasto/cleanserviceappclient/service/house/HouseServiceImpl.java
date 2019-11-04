@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import sk.pasto.cleanserviceappclient._core.service.AbstractService;
 import sk.pasto.cleanserviceappclient.modelDTO.House;
 import sk.pasto.cleanserviceappclient.modelDTO.Person;
+import sk.pasto.cleanserviceappclient.modelDTO.PersonResource;
 import sk.pasto.cleanserviceappclient.service.person.PersonService;
 import sk.pasto.cleanserviceappclient.utils.Utils;
 
@@ -44,6 +45,21 @@ public class HouseServiceImpl extends AbstractService<House> implements HouseSer
         List<Person> persons = new ArrayList<>();
         for (Resource<Person> res : content) {
             persons.add(res.getContent());
+        }
+        return persons;
+    }
+
+    @Override
+    public List<Person> findNotAddedPersonsByHouseId(Integer id) {
+        String url = BASE_API_PATH + "/" + id + "/persons/notadded";
+        ResponseEntity<Resources<Resource<PersonResource>>> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<Resources<Resource<PersonResource>>>(){
+                        });
+        Collection<Resource<PersonResource>> resources = responseEntity.getBody().getContent();
+        List<Person> persons = new ArrayList<>();
+        for (Resource<PersonResource> rp: resources) {
+            persons.add(rp.getContent().getPerson());
         }
         return persons;
     }
